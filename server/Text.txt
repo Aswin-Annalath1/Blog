@@ -1,0 +1,11 @@
+1.// create Node environment (npm init --y)
+2.// installing express (npm i express)
+3.// Install TypeScript as a development dependency and also types for packages (npm install --save-dev typescript @types/express @types/node)
+
+Now to use typescript we need to convert to javascript and then compile so for this we need to set configurations.
+This is called Transpilation of code where all errors are found, then only code is allowed to run.
+
+4.//Create a tsconfig.json file to configure TypeScript settings (npx tsc --init)
+5.//Manually set path for typescript in tsconfig.json file ("rootDir": "src") ("outDir": "build")
+6.//Now manually create a src folder and index.ts file
+7.//Now to easily run in package.json set scripts like ("start": "npx tsc && node build/index.js")
