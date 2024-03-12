@@ -17,13 +17,10 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = require("../models/user");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
     try {
-        const salt = yield bcrypt_1.default.genSalt(10);
-        const hashedPassword = yield bcrypt_1.default.hash(password, salt);
         const userDoc = yield user_1.User.create({
-            username,
-            password: hashedPassword,
+            username: req.body.username,
+            password: req.body.password
         });
         res.json(userDoc);
     }
@@ -42,8 +39,12 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).json(errorResponse);
             return;
         }
-        let passOk = yield bcrypt_1.default.compare(password, userDoc.password);
-        passOk = true;
+        const hashedPassword = userDoc.password;
+        if (!hashedPassword) {
+            res.status(500).json({ error: 'User password is missing or undefined' });
+            return;
+        }
+        let passOk = yield bcrypt_1.default.compare(password, hashedPassword);
         if (passOk) {
             jsonwebtoken_1.default.sign({ username, id: userDoc._id }, process.env.SECRET, {}, (err, token) => {
                 if (err)

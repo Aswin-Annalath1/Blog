@@ -18,10 +18,9 @@ export default function PostPage() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/blog/post/${id}`).then((response) => {
+    fetch(`http://localhost:5000/blog/post/${id}`).then((response) => {
       response.json().then((postInfo: PostInfo) => {
         setPostInfo(postInfo);
-        console.log(postInfo.cover)
       });
     });
   }, [id]);
@@ -55,7 +54,7 @@ export default function PostPage() {
         </div>
       )}
       <div className="image">
-        <img src={`http://localhost:4000/${postInfo.cover}`} alt="The image" />
+        <img src={`http://localhost:5000/${postInfo.cover}`} alt="The image" />
       </div>
       <div
         className="content"

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const postController_1 = require("../controller/postController");
-const uploadMiddleware = (0, multer_1.default)({ dest: 'uploads/' });
+const uploadMiddleware = (0, multer_1.default)({ dest: 'build/uploads/' });
 const router = (0, express_1.Router)();
 router.post("/post", uploadMiddleware.single('file'), postController_1.postblog);
 router.put("/post", uploadMiddleware.single('file'), postController_1.putblog);

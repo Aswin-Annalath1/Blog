@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import fs from 'fs/promises';
+import fs from 'fs';
 import Post  from '../models/post';
 import mongoose from 'mongoose';
 
@@ -18,8 +18,8 @@ export const postblog = async (req: Request, res: Response): Promise<void> => {
     const { originalname, path } = req.file;
     const parts = originalname.split('.');
     const ext = parts[parts.length - 1];
-    const newPath = path + '.' + ext;
-    await fs.rename(path, newPath);
+    const newPath = path.replace(/\\/g, '/') + '.' + ext;
+    await fs.renameSync(path, newPath);
 
     const { token } = req.cookies;
     jwt.verify(token, process.env.SECRET as string, {}, async (err, info) => {
@@ -30,10 +30,9 @@ export const postblog = async (req: Request, res: Response): Promise<void> => {
         title,
         summary,
         content,
-        cover: newPath,
+        cover: newPath.replace('build/', ''),
         author: (info as DecodedToken).id,
       });
-
       res.json(postDoc);
     });
   } catch (error) {
@@ -45,40 +44,31 @@ export const postblog = async (req: Request, res: Response): Promise<void> => {
 export const putblog = async (req: Request, res: Response): Promise<void> => {
   try {
     let newPath: string | null = null;
-
     if (req.file) {
       const { originalname, path } = req.file;
       const parts = originalname.split('.');
       const ext = parts[parts.length - 1];
-      newPath = path + '.' + ext;
-      await fs.rename(path, newPath);
+      newPath = path.replace(/\\/g, '/') + '.' + ext;
+      await fs.renameSync(path, newPath);
     }
-
     const { token } = req.cookies;
-
     jwt.verify(token, process.env.SECRET as string, {}, async (err, info) => {
       if (err) throw err;
-
       const { id, title, summary, content } = req.body;
       const postDoc = await Post.findById(id);
-
       const isAuthor = JSON.stringify(postDoc?.author) === JSON.stringify((info as DecodedToken).id);
-
       if (!isAuthor) {
         return res.status(400).json('You are not the author');
       }
-
       await Post.updateOne({ _id: id }, {
         $set: {
           title,
           summary,
           content,
-          cover: newPath ? newPath : postDoc?.cover,
+          cover: newPath ? newPath.replace('build/', '') : postDoc?.cover,
         },
       });
-
       const updatedPostDoc = await Post.findById(id);
-
       res.json(updatedPostDoc);
     });
   } catch (error) {

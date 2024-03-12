@@ -9,7 +9,7 @@ export default function LoginPage() {
   const {setUserInfo} = useContext(UserContext);
   async function login(ev: FormEvent) {
     ev.preventDefault();  //asynchronous handling of form submissions and avoid unwanted page reloads.
-    const response = await fetch('http://localhost:4000/users/login', {
+    const response = await fetch('http://localhost:5000/users/login', {
       method: 'POST',
       body: JSON.stringify({username, password}),
       headers: {'Content-Type':'application/json'},

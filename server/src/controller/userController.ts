@@ -1,25 +1,23 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { User, IUser } from '../models/user';
+import { User } from '../models/user';
 
 interface DecodedToken {
   username: string;
   id: string;
 }
+interface RegistrationRequestBody {
+  username: string;
+  password: string;
+}
 
-export const register = async (req: Request, res: Response): Promise<void> => {
-  const { username, password } = req.body;
-
+export const register = async (req: Request<{}, {}, RegistrationRequestBody>, res: Response): Promise<void> => {
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     const userDoc = await User.create({
-      username,
-      password: hashedPassword,
+      username:req.body.username,
+      password: req.body.password
     });
-
     res.json(userDoc);
   } catch (e) {
     console.error(e);
@@ -31,7 +29,6 @@ interface LoginRequestBody {
   username: string;
   password: string;
 }
-
 interface ErrorResponse {
   error: string;
 }
@@ -45,9 +42,12 @@ export const login = async (req: Request<{}, {}, LoginRequestBody>, res: Respons
       res.status(400).json(errorResponse);
       return;
     }
-    let passOk = await bcrypt.compare(password, userDoc.password);
-    passOk = true
-
+    const hashedPassword: string | undefined = userDoc.password;
+    if (!hashedPassword) {
+      res.status(500).json({ error: 'User password is missing or undefined' });
+      return;
+    }
+    let passOk: boolean = await bcrypt.compare(password, hashedPassword);
     if (passOk) {
       jwt.sign({ username, id: userDoc._id }, process.env.SECRET as string, {}, (err, token) => {
         if (err) throw err;

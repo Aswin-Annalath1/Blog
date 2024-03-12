@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postlike = exports.getsinglepost = exports.getpost = exports.putblog = exports.postblog = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const promises_1 = __importDefault(require("fs/promises"));
+const fs_1 = __importDefault(require("fs"));
 const post_1 = __importDefault(require("../models/post"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,8 +26,8 @@ const postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { originalname, path } = req.file;
         const parts = originalname.split('.');
         const ext = parts[parts.length - 1];
-        const newPath = path + '.' + ext;
-        yield promises_1.default.rename(path, newPath);
+        const newPath = path.replace(/\\/g, '/') + '.' + ext;
+        yield fs_1.default.renameSync(path, newPath);
         const { token } = req.cookies;
         jsonwebtoken_1.default.verify(token, process.env.SECRET, {}, (err, info) => __awaiter(void 0, void 0, void 0, function* () {
             if (err)
@@ -37,7 +37,7 @@ const postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 title,
                 summary,
                 content,
-                cover: newPath,
+                cover: newPath.replace('build/', ''),
                 author: info.id,
             });
             res.json(postDoc);
@@ -56,8 +56,8 @@ const putblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const { originalname, path } = req.file;
             const parts = originalname.split('.');
             const ext = parts[parts.length - 1];
-            newPath = path + '.' + ext;
-            yield promises_1.default.rename(path, newPath);
+            newPath = path.replace(/\\/g, '/') + '.' + ext;
+            yield fs_1.default.renameSync(path, newPath);
         }
         const { token } = req.cookies;
         jsonwebtoken_1.default.verify(token, process.env.SECRET, {}, (err, info) => __awaiter(void 0, void 0, void 0, function* () {
@@ -74,7 +74,7 @@ const putblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     title,
                     summary,
                     content,
-                    cover: newPath ? newPath : postDoc === null || postDoc === void 0 ? void 0 : postDoc.cover,
+                    cover: newPath ? newPath.replace('build/', '') : postDoc === null || postDoc === void 0 ? void 0 : postDoc.cover,
                 },
             });
             const updatedPostDoc = yield post_1.default.findById(id);

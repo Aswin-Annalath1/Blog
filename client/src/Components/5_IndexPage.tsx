@@ -16,7 +16,7 @@ export default function IndexPage() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/blog/post').then((response) => {
+    fetch('http://localhost:5000/blog/post').then((response) => {
       response.json().then((posts: Post[]) => {
         setPosts(posts);
       });
@@ -25,7 +25,7 @@ export default function IndexPage() {
 
   const handleLike = async (postId: string) => {
     try {
-      const response = await fetch(`http://localhost:4000/blog/like/${postId}`, {
+      const response = await fetch(`http://localhost:5000/blog/like/${postId}`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -51,7 +51,7 @@ export default function IndexPage() {
           <div className="post" key={post._id}>
             <div className="image">
               <Link to={`/post/${post._id}`}>
-                <img src={`http://localhost:4000/${post.cover}`} alt="" />
+                <img src={`http://localhost:5000/${post.cover}`} alt="" />
               </Link>
             </div>
             <div className="texts">

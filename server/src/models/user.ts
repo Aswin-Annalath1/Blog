@@ -22,21 +22,5 @@ userSchema.pre<IUser>('save', async function (next) {
   }
 });
 
-userSchema.statics.login = async function (username: string, password: string): Promise<IUser | null> {
-  try {
-    const user = await this.findOne({ username });
-    if (!user) {
-      throw new Error('User not found');
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      throw new Error('Incorrect password');
-    }
-    return user;
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
-};
-
 export const User = mongoose.model<IUser>('User', userSchema);
 

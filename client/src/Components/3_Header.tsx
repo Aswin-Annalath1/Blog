@@ -15,7 +15,7 @@ export default function Header() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/users/profile', {
+        const response = await fetch('http://localhost:5000/users/profile', {
           credentials: 'include',
         });
         if (response.ok) {
@@ -33,7 +33,7 @@ export default function Header() {
   }, []);
 
   function logout() {
-    fetch('http://localhost:4000/users/logout', {
+    fetch('http://localhost:5000/users/logout', {
       credentials: 'include',
       method: 'POST',
     });

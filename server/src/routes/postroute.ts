@@ -8,7 +8,7 @@ import {
   postlike
 } from '../controller/postController';
 
-const uploadMiddleware = multer({ dest: 'uploads/' });
+const uploadMiddleware = multer({ dest: 'build/uploads/' });
 const router = Router();
 
 router.post("/post", uploadMiddleware.single('file'), postblog);

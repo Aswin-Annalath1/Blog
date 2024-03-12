@@ -32,22 +32,4 @@ userSchema.pre('save', function (next) {
         }
     });
 });
-userSchema.statics.login = function (username, password) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const user = yield this.findOne({ username });
-            if (!user) {
-                throw new Error('User not found');
-            }
-            const isMatch = yield bcrypt_1.default.compare(password, user.password);
-            if (!isMatch) {
-                throw new Error('Incorrect password');
-            }
-            return user;
-        }
-        catch (error) {
-            throw new Error(error.message);
-        }
-    });
-};
 exports.User = mongoose_1.default.model('User', userSchema);
