@@ -17,7 +17,16 @@ app.use(
 );
 app.options('*', cors());
 
-app.use(cookieParser());
+// Custom middleware to set Secure attribute for cookies when served over HTTPS
+app.use((req, res, next) => {
+  const isSecure = req.secure || (req.headers['x-forwarded-proto'] === 'https');
+  if (isSecure) {
+    res.cookie('key', 'value', { secure: true });
+  }
+  next();
+});
+app.use(cookieParser(process.env.SECRET));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // This line allows serving static files from the /uploads directory.
