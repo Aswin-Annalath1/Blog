@@ -18,7 +18,7 @@ export default function PostPage() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/blog/post/${id}`).then((response) => {
+    fetch(`https://blog-ov6m.onrender.com/blog/post/${id}`).then((response) => {
       response.json().then((postInfo: PostInfo) => {
         setPostInfo(postInfo);
       });
@@ -54,7 +54,7 @@ export default function PostPage() {
         </div>
       )}
       <div className="image">
-        <img src={`http://localhost:5000/${postInfo.cover}`} alt="The image" />
+        <img src={`https://blog-ov6m.onrender.com/${postInfo.cover}`} alt="The image" />
       </div>
       <div
         className="content"

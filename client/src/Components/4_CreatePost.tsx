@@ -23,7 +23,7 @@ export default function CreatePost({}: CreatePostProps) {
       data.set('file', files[0]);
     }
 
-    const response = await fetch('http://localhost:5000/blog/post', {
+    const response = await fetch('https://blog-ov6m.onrender.com/blog/post', {
       method: 'POST',
       body: data,
       credentials: 'include',

@@ -6,7 +6,7 @@ const RegisterPage: React.FC = () => {
 
   async function register(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault();
-    const response = await fetch('http://localhost:5000/users/register', {
+    const response = await fetch('https://blog-ov6m.onrender.com/users/register', {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },

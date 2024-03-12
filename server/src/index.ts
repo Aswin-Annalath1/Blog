@@ -9,7 +9,7 @@ import path from 'path';
 const app = express(); // Express Server Setup
 
 app.use(
-  cors({ credentials: true, origin: 'http://localhost:5173', methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]})
+  cors({ credentials: true, origin: 'https://blog-ov6m.onrender.com', methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]})
 );
 
 app.use(cookieParser());
