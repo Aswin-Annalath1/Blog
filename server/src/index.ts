@@ -9,8 +9,13 @@ import path from 'path';
 const app = express(); // Express Server Setup
 
 app.use(
-  cors({ credentials: true, origin:'https://main--blogeeeee.netlify.app'})
+  cors({
+    origin: 'https://main--blogeeeee.netlify.app',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  })
 );
+app.options('*', cors());
 
 app.use(cookieParser());
 app.use(bodyParser.json());

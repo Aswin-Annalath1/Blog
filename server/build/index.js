@@ -20,7 +20,12 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const index_1 = __importDefault(require("./routes/index"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)(); // Express Server Setup
-app.use((0, cors_1.default)({ credentials: true, origin: 'https://main--blogeeeee.netlify.app' }));
+app.use((0, cors_1.default)({
+    origin: 'https://main--blogeeeee.netlify.app',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+}));
+app.options('*', (0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
