@@ -15,7 +15,6 @@ app.use(
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   })
 );
-app.options('*', cors());
 
 // Custom middleware to set Secure attribute for cookies when served over HTTPS
 app.use((req, res, next) => {
