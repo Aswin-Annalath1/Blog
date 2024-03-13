@@ -16,6 +16,8 @@ exports.logout = exports.getprofile = exports.login = exports.register = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_1 = require("../models/user");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userDoc = yield user_1.User.create({

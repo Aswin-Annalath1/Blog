@@ -19,19 +19,26 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const index_1 = __importDefault(require("./routes/index"));
 const path_1 = __importDefault(require("path"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const app = (0, express_1.default)(); // Express Server Setup
 app.use((0, cors_1.default)({
     origin: 'https://blogeeeee.netlify.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 }));
-app.options('*', (0, cors_1.default)());
-app.use((0, cookie_parser_1.default)());
+// Custom middleware to set Secure attribute for cookies when served over HTTPS
+app.use((req, res, next) => {
+    const isSecure = req.secure || (req.headers['x-forwarded-proto'] === 'https');
+    if (isSecure) {
+        res.cookie('key', 'value', { secure: true });
+    }
+    next();
+});
+app.use((0, cookie_parser_1.default)(process.env.SECRET));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads'))); // This line allows serving static files from the /uploads directory.
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
 const connection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(process.env.MONGO_URL);
