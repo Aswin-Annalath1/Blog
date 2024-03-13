@@ -120,6 +120,7 @@ export const postlike = async (req: Request, res: Response): Promise<void> => {
 
   try {
     const { token } = req.cookies;
+    console.log(token)
     const decodedInfo = jwt.verify(token, process.env.SECRET as string, {}) as DecodedToken;
 
     const post = await Post.findById(id);

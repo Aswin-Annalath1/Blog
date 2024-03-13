@@ -124,6 +124,7 @@ const postlike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const { token } = req.cookies;
+        console.log(token);
         const decodedInfo = jsonwebtoken_1.default.verify(token, process.env.SECRET, {});
         const post = yield post_1.default.findById(id);
         if (!post) {

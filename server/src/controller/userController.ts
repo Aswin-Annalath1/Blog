@@ -72,7 +72,6 @@ export const getprofile = async (req: Request, res: Response): Promise<void> => 
     const { token } = req.cookies;
     jwt.verify(token, process.env.SECRET as string, {}, (err, info) => {
       if (err) {
-        console.error('JWT Verification Error:', err);
         res.status(401).json({ error: 'Unauthorized' });
       } else {
         res.json(info as DecodedToken);

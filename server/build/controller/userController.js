@@ -72,7 +72,6 @@ const getprofile = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const { token } = req.cookies;
         jsonwebtoken_1.default.verify(token, process.env.SECRET, {}, (err, info) => {
             if (err) {
-                console.error('JWT Verification Error:', err);
                 res.status(401).json({ error: 'Unauthorized' });
             }
             else {
