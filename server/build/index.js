@@ -21,7 +21,7 @@ const index_1 = __importDefault(require("./routes/index"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)(); // Express Server Setup
 app.use((0, cors_1.default)({
-    origin: 'https://blogeeeee.netlify.app/*',
+    origin: 'https://blogeeeee.netlify.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 }));

@@ -10,7 +10,7 @@ const app = express(); // Express Server Setup
 
 app.use(
   cors({
-    origin: 'https://blogeeeee.netlify.app/*',
+    origin: 'https://blogeeeee.netlify.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   })
