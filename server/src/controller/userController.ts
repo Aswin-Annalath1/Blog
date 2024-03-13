@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { User } from '../models/user';
+import dotenv from 'dotenv';
+dotenv.config();
 
 interface DecodedToken {
   username: string;

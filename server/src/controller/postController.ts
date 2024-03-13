@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import Post  from '../models/post';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
 interface DecodedToken {
   id: string;
