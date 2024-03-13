@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import allRoutes from './routes/index'; 
 import path from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express(); // Express Server Setup
 
@@ -30,8 +32,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // This line allows serving static files from the /uploads directory.
 
-import dotenv from 'dotenv';
-dotenv.config();
 
 const connection = async () => {
   try {
