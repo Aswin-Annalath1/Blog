@@ -18,7 +18,6 @@ export default function LoginPage() {
     if (response.ok) {
       const data = await response.json();
       const token = data.token; // Extract token from response
-      console.log(token)
       localStorage.setItem("token", token); // Save the token in localStorage
       setUserInfo(data); // Set user info state
       setRedirect(true); // Redirect the user
