@@ -20,6 +20,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         if (!req.file) {
             res.status(400).json({ message: 'File not provided' });
@@ -30,7 +31,12 @@ const postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const ext = parts[parts.length - 1];
         const newPath = path.replace(/\\/g, '/') + '.' + ext;
         yield fs_1.default.renameSync(path, newPath);
-        const { token } = req.cookies;
+        // const { token } = req.cookies;
+        const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+        if (!token) {
+            res.status(401).json({ error: 'Token is missing' });
+            return;
+        }
         jsonwebtoken_1.default.verify(token, process.env.SECRET, {}, (err, info) => __awaiter(void 0, void 0, void 0, function* () {
             if (err)
                 throw err;
@@ -52,6 +58,7 @@ const postblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.postblog = postblog;
 const putblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
     try {
         let newPath = null;
         if (req.file) {
@@ -61,7 +68,12 @@ const putblog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             newPath = path.replace(/\\/g, '/') + '.' + ext;
             yield fs_1.default.renameSync(path, newPath);
         }
-        const { token } = req.cookies;
+        // const { token } = req.cookies;
+        const token = (_b = req.headers.authorization) === null || _b === void 0 ? void 0 : _b.split(" ")[1];
+        if (!token) {
+            res.status(401).json({ error: 'Token is missing' });
+            return;
+        }
         jsonwebtoken_1.default.verify(token, process.env.SECRET, {}, (err, info) => __awaiter(void 0, void 0, void 0, function* () {
             if (err)
                 throw err;
@@ -121,9 +133,15 @@ const getsinglepost = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getsinglepost = getsinglepost;
 const postlike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
     const { id } = req.params;
     try {
-        const { token } = req.cookies;
+        // const { token } = req.cookies;
+        const token = (_c = req.headers.authorization) === null || _c === void 0 ? void 0 : _c.split(" ")[1];
+        if (!token) {
+            res.status(401).json({ error: 'Token is missing' });
+            return;
+        }
         console.log(token);
         const decodedInfo = jsonwebtoken_1.default.verify(token, process.env.SECRET, {});
         const post = yield post_1.default.findById(id);

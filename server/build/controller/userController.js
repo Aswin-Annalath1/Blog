@@ -54,6 +54,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 res.cookie('token', token).json({
                     id: userDoc._id,
                     username,
+                    token,
                 });
             });
         }
@@ -68,8 +69,14 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.login = login;
 const getprofile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const { token } = req.cookies;
+        // const { token } = req.cookies;
+        const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
+        if (!token) {
+            res.status(401).json({ error: 'Token is missing' });
+            return;
+        }
         jsonwebtoken_1.default.verify(token, process.env.SECRET, {}, (err, info) => {
             if (err) {
                 res.status(401).json({ error: 'Unauthorized' });
