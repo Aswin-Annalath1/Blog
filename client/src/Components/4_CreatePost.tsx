@@ -45,13 +45,13 @@ export default function CreatePost({}: CreatePostProps) {
         placeholder={'Title'}
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
-      />
+      required/>
       <input
         type="summary"
         placeholder={'Summary'}
         value={summary}
         onChange={(ev) => setSummary(ev.target.value)}
-      />
+      required/>
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
       {/* Content is edited and styled with help of react-quill */}
       <Editor value={content} onChange={setContent} />

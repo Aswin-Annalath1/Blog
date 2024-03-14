@@ -34,11 +34,11 @@ export default function LoginPage() {
       <input type="text"
              placeholder="username"
              value={username}
-             onChange={(ev: ChangeEvent<HTMLInputElement>) => setUsername(ev.target.value)}/>
+             onChange={(ev: ChangeEvent<HTMLInputElement>) => setUsername(ev.target.value)} required/>
       <input type="password"
              placeholder="password"
              value={password}
-             onChange={(ev: ChangeEvent<HTMLInputElement>) => setPassword(ev.target.value)}/>
+             onChange={(ev: ChangeEvent<HTMLInputElement>) => setPassword(ev.target.value)} required/>
       <button>Login</button>
     </form>
   );

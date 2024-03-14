@@ -27,13 +27,13 @@ const RegisterPage: React.FC = () => {
         placeholder="username"
         value={username}
         onChange={(ev) => setUsername(ev.target.value)}
-      />
+      required/>
       <input
         type="password"
         placeholder="password"
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}
-      />
+      required/>
       <button type="submit">Register</button>
     </form>
   );
