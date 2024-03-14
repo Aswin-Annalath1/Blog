@@ -16,14 +16,14 @@ export default function LoginPage() {
       credentials: 'include',
     });
     if (response.ok) {
-      const data = await response.json()
-      localStorage.setItem("token", data.token); // Save the token in localStorage
-      response.json().then(userInfo => {
-        setUserInfo(userInfo);
-        setRedirect(true);
-      });
+      const data = await response.json();
+      const token = data.token; // Extract token from response
+      console.log(token)
+      localStorage.setItem("token", token); // Save the token in localStorage
+      setUserInfo(data); // Set user info state
+      setRedirect(true); // Redirect the user
     } else {
-      alert('wrong credentials');
+      alert('Wrong credentials');
     }
   }
   if (redirect) {
