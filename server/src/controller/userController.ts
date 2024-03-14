@@ -56,6 +56,7 @@ export const login = async (req: Request<{}, {}, LoginRequestBody>, res: Respons
         res.cookie('token', token).json({
           id: userDoc._id,
           username,
+          token,
         });
       });
     } else {
@@ -69,7 +70,12 @@ export const login = async (req: Request<{}, {}, LoginRequestBody>, res: Respons
 
 export const getprofile = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { token } = req.cookies;
+    // const { token } = req.cookies;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      res.status(401).json({ error: 'Token is missing' });
+      return;
+    }
     jwt.verify(token, process.env.SECRET as string, {}, (err, info) => {
       if (err) {
         res.status(401).json({ error: 'Unauthorized' });

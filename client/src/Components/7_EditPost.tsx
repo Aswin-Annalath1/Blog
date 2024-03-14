@@ -38,8 +38,12 @@ export default function EditPost() {
     if (files?.[0]) {
       data.set('file', files[0]);
     }
+    const token = localStorage.getItem("token");
     const response = await fetch('https://blog-ov6m.onrender.com/blog/post', {
       method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+      },
       body: data,
       credentials: 'include',
     });

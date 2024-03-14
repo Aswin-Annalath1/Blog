@@ -25,8 +25,12 @@ export default function IndexPage() {
 
   const handleLike = async (postId: string) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(`https://blog-ov6m.onrender.com/blog/like/${postId}`, {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
         credentials: 'include',
       });
 

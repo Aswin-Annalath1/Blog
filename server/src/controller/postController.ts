@@ -23,7 +23,12 @@ export const postblog = async (req: Request, res: Response): Promise<void> => {
     const newPath = path.replace(/\\/g, '/') + '.' + ext;
     await fs.renameSync(path, newPath);
 
-    const { token } = req.cookies;
+    // const { token } = req.cookies;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      res.status(401).json({ error: 'Token is missing' });
+      return;
+    }
     jwt.verify(token, process.env.SECRET as string, {}, async (err, info) => {
       if (err) throw err;
 
@@ -53,7 +58,12 @@ export const putblog = async (req: Request, res: Response): Promise<void> => {
       newPath = path.replace(/\\/g, '/') + '.' + ext;
       await fs.renameSync(path, newPath);
     }
-    const { token } = req.cookies;
+    // const { token } = req.cookies;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      res.status(401).json({ error: 'Token is missing' });
+      return;
+    }
     jwt.verify(token, process.env.SECRET as string, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, summary, content } = req.body;
@@ -119,7 +129,12 @@ export const postlike = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
   try {
-    const { token } = req.cookies;
+    // const { token } = req.cookies;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      res.status(401).json({ error: 'Token is missing' });
+      return;
+    }
     console.log(token)
     const decodedInfo = jwt.verify(token, process.env.SECRET as string, {}) as DecodedToken;
 

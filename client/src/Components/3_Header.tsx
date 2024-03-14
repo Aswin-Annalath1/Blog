@@ -15,7 +15,11 @@ export default function Header() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch('https://blog-ov6m.onrender.com/users/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
           credentials: 'include',
         });
         if (response.ok) {

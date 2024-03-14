@@ -16,6 +16,8 @@ export default function LoginPage() {
       credentials: 'include',
     });
     if (response.ok) {
+      const data = await response.json()
+      localStorage.setItem("token", data.token); // Save the token in localStorage
       response.json().then(userInfo => {
         setUserInfo(userInfo);
         setRedirect(true);

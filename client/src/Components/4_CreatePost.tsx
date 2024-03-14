@@ -22,9 +22,12 @@ export default function CreatePost({}: CreatePostProps) {
     if (files && files.length > 0) {
       data.set('file', files[0]);
     }
-
+    const token = localStorage.getItem("token");
     const response = await fetch('https://blog-ov6m.onrender.com/blog/post', {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+      },
       body: data,
       credentials: 'include',
     });
