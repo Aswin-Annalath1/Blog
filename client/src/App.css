@@ -156,3 +156,14 @@ div.post-page a.edit-btn{
 a svg{
   height:20px;
 }
+/* Normal/light mode styles */
+.header {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* Dark mode styles */
+.header.dark-mode {
+  background-color: #674585;
+  color: #ffffff;
+}

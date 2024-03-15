@@ -1,4 +1,4 @@
-import  { useContext, useEffect } from "react";
+import  { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "./Utils/UserContext";
 
@@ -11,6 +11,7 @@ interface UserInfo {
 export default function Header() {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useState(false); // State variable to track dark mode
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,8 +47,12 @@ export default function Header() {
   }
 
   const username = userInfo?.username;
+  // Function to toggle dark mode
+  function toggleDarkMode() {
+    setDarkMode(prevMode => !prevMode);
+  }
   return (
-    <header>
+    <header className={darkMode ? "dark-mode" : ""}> {/* Apply dark mode class */}
       <a className="logo">MyBlog</a>
       <nav>
         {username && (
@@ -62,6 +67,8 @@ export default function Header() {
             <Link to="/register">Register</Link>
           </>
         )}
+        {/* Add dark mode button */}
+        <button onClick={toggleDarkMode}>{darkMode ? "Light Mode" : "Dark Mode"}</button>
       </nav>
     </header>
   );
