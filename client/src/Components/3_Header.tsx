@@ -50,6 +50,7 @@ export default function Header() {
   // Function to toggle dark mode
   function toggleDarkMode() {
     setDarkMode(prevMode => !prevMode);
+    document.body.classList.toggle("dark-mode");
   }
   return (
     <header className={darkMode ? "dark-mode" : ""}> {/* Apply dark mode class */}
