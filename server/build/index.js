@@ -28,13 +28,6 @@ app.use((0, cors_1.default)({
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 }));
 // Custom middleware to set Secure attribute for cookies when served over HTTPS
-app.use((req, res, next) => {
-    const isSecure = req.secure || (req.headers['x-forwarded-proto'] === 'https');
-    if (isSecure) {
-        res.cookie('key', 'value', { secure: true });
-    }
-    next();
-});
 app.use((0, cookie_parser_1.default)(process.env.SECRET));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
