@@ -30,8 +30,8 @@ header a.logo{
   font-weight: bold;
   font-size: 1.5rem;
 }
-header button{
-  padding: 8px 16px;
+header nav button.mode{
+  padding: 6px 10px;
 }
 header nav{
   display:flex;
