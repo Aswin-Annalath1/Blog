@@ -55,6 +55,7 @@ export default function Header() {
   return (
     <header className={darkMode ? "dark-mode" : ""}> {/* Apply dark mode class */}
       <a className="logo">MyBlog</a>
+      <button onClick={toggleDarkMode}>{darkMode ? "Light Mode" : "Dark Mode"}</button>
       <nav>
         {username && (
           <>
@@ -69,7 +70,6 @@ export default function Header() {
           </>
         )}
         {/* Add dark mode button */}
-        <button onClick={toggleDarkMode}>{darkMode ? "Light Mode" : "Dark Mode"}</button>
       </nav>
     </header>
   );
