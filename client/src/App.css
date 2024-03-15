@@ -31,10 +31,10 @@ header a.logo{
   font-size: 1.5rem;
 }
 header nav button.mode{
-  padding: 4px 4px;
+  padding: 2px 2px;
   font-weight: bold;
   font-size: 1rem;
-  background-color: rgb(166, 176, 164);
+  background-color: rgb(194, 196, 193);
 }
 header nav{
   display:flex;

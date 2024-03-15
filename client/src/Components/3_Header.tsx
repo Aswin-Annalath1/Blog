@@ -69,7 +69,7 @@ export default function Header() {
           </>
         )}
         {/* Add dark mode button */}
-        <button className="mode" onClick={toggleDarkMode}>{darkMode ? "🌞" : "🌚"}</button>
+        <button className="mode" onClick={toggleDarkMode}>{darkMode ? "🌝" : "🌚"}</button>
       </nav>
     </header>
   );
