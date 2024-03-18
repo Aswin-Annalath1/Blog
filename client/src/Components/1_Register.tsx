@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from "react";
+import {Navigate} from "react-router-dom";
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
@@ -14,6 +15,7 @@ const RegisterPage: React.FC = () => {
 
     if (response.status === 200) {
       alert('Registration successful');
+      return <Navigate to={'/'} />
     } else {
       alert('Registration failed');
     }
