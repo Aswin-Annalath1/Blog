@@ -1,6 +1,7 @@
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
+//Page level component where a reusable UI component passed with Props.
+
 import { useEffect, useState } from "react";
+import Post from "../Post";
 
 interface Post {
   _id: string;
@@ -10,6 +11,7 @@ interface Post {
   createdAt: string;
   summary: string;
   likesCount: number;
+  
 }
 
 export default function IndexPage() {
@@ -52,27 +54,7 @@ export default function IndexPage() {
     <>
       {posts.length > 0 &&
         posts.map((post) => (
-          <div className="post" key={post._id}>
-            <div className="image">
-              <Link to={`/post/${post._id}`}>
-                <img src={`https://blog-ov6m.onrender.com/${post.cover}`} alt="" />
-              </Link>
-            </div>
-            <div className="texts">
-              <Link to={`/post/${post._id}`}>
-                <h2>{post.title}</h2>
-              </Link>
-              <p className="info">
-                <a className="author">{post.author?.username}</a>
-                <time>{format(new Date(post.createdAt), 'dd-MM-yyyy')}</time>
-                <a className="info1">
-                  <a onClick={() => handleLike(post._id)}>❤️</a>
-                  <span>{post.likesCount}</span>
-                </a>
-              </p>
-              <p className="summary">{post.summary}</p>
-            </div>
-          </div>
+          <Post key={post._id} {...post} handleLike={handleLike}/> //key help to point unique element in component array & handleclick passed as props for like functionality 
         ))}
     </>
   );
