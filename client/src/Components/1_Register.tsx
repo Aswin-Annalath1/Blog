@@ -15,8 +15,8 @@ const RegisterPage: React.FC = () => {
     });
 
     if (response.status === 200) {
-      alert('Registration successful');
       navigate('/');
+      alert('Registration successful');
     } else {
       alert('Registration failed');
     }
