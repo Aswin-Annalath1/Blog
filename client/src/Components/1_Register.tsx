@@ -1,9 +1,10 @@
 import React, { useState, FormEvent } from "react";
-import {Navigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate();
 
   async function register(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault();
@@ -15,7 +16,7 @@ const RegisterPage: React.FC = () => {
 
     if (response.status === 200) {
       alert('Registration successful');
-      <Navigate to={'/'} />
+      navigate('/');
     } else {
       alert('Registration failed');
     }
