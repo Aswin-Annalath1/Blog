@@ -17,7 +17,6 @@ export default function Header() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log(token)
         if (!token) {
           navigate('/login'); // Redirect to login page if token doesn't exist
         } else {
@@ -55,9 +54,8 @@ export default function Header() {
       // Handle error as needed
     });
   }
-  
+
   const username = userInfo?.username;
-  console.log(username)
   // Function to toggle dark mode
   function toggleDarkMode() {
     setDarkMode(prevMode => !prevMode);
