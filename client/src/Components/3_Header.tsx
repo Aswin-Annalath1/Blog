@@ -47,6 +47,7 @@ export default function Header() {
   }
 
   const username = userInfo?.username;
+  console.log(username)
   // Function to toggle dark mode
   function toggleDarkMode() {
     setDarkMode(prevMode => !prevMode);
