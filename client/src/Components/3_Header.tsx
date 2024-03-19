@@ -12,7 +12,6 @@ export default function Header() {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false); // State variable to track dark mode
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,8 +32,7 @@ export default function Header() {
       } catch (error) {
         console.error('Error fetching profile:', error);
         // Handle errors as needed
-      }finally {
-        setIsLoading(false); // Set loading state to false regardless of success or failure
+        navigate('/login'); // Redirect to login page on error
       }
     };
     fetchData();
@@ -55,9 +53,6 @@ export default function Header() {
   function toggleDarkMode() {
     setDarkMode(prevMode => !prevMode);
     document.body.classList.toggle("dark-mode");
-  }
-  if (isLoading) {
-    return <div>Loading...</div>; // Show loading indicator while fetching user profile
   }
   return (
     <header className={darkMode ? "dark-mode" : ""}> {/* Apply dark mode class */}
