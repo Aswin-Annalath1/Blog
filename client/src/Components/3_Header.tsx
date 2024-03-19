@@ -46,11 +46,16 @@ export default function Header() {
     fetch('https://blog-ov6m.onrender.com/users/logout', {
       credentials: 'include',
       method: 'POST',
+    }).then(() => {
+      localStorage.removeItem("token"); // Clear token from local storage
+      setUserInfo(null);
+      navigate('/login');
+    }).catch(error => {
+      console.error('Error logging out:', error);
+      // Handle error as needed
     });
-    setUserInfo(null);
-    navigate('/login');
   }
-
+  
   const username = userInfo?.username;
   console.log(username)
   // Function to toggle dark mode
