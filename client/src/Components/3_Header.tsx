@@ -17,19 +17,22 @@ export default function Header() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch('https://blog-ov6m.onrender.com/users/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-          },
-          credentials: 'include',
-        });
+        if (!token) {
+          navigate('/login'); // Redirect to login page if token doesn't exist
+        } else {
+          const response = await fetch('https://blog-ov6m.onrender.com/users/profile', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: 'include',
+          });
         if (response.ok) {
           const userInfo: UserInfo = await response.json();
           setUserInfo(userInfo);
         } else {
           setUserInfo(null);
         }
-      } catch (error) {
+      }} catch (error) {
         console.error('Error fetching profile:', error);
         // Handle errors as needed
         navigate('/login'); // Redirect to login page on error
