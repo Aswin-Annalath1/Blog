@@ -17,6 +17,7 @@ export default function Header() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
+        console.log(token)
         if (!token) {
           navigate('/login'); // Redirect to login page if token doesn't exist
         } else {
